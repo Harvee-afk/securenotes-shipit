@@ -2,6 +2,8 @@
 
 **Weeks 16–17 Laboratory · work in pairs**
 
+**Pair:** John Harvee D. Jimenez and William Victor Ordas
+
 The SecureNotes API is already built, secure, and tested (Weeks 13–15). Your job
 this lab is the last mile: make the front end **accessible** and **fast**
 (Week 16), then wire up a **pipeline** that runs every check automatically
@@ -34,16 +36,16 @@ Your job is to turn every red one green without breaking a green one.
 Files: `app/static/index.html` and `app/static/styles.css`
 Check with: `pytest tests/test_accessibility.py tests/test_performance.py`
 
-- [ ] **TASK 1 — Perceivable.** Add `lang` to `<html>`, a real `<title>`, and
+- [x] **TASK 1 — Perceivable.** Add `lang` to `<html>`, a real `<title>`, and
       `alt` text on both images.
-- [ ] **TASK 2 — Structure & controls.** Make the content a `<main>` landmark,
+- [x] **TASK 2 — Structure & controls.** Make the content a `<main>` landmark,
       fix the heading levels so they don't skip (h1 → h2, not h1 → h3), and turn
       the fake `<div class="btn">` into a real `<button>`.
-- [ ] **TASK 3 — Labels.** Replace the `<span class="fake-label">` text with real
+- [x] **TASK 3 — Labels.** Replace the `<span class="fake-label">` text with real
       `<label for="...">` tied to each input's `id`.
-- [ ] **TASK 4 — Contrast.** In `styles.css`, darken `--ink` and `--brand` until
+- [x] **TASK 4 — Contrast.** In `styles.css`, darken `--ink` and `--brand` until
       both contrast tests pass (WCAG AA = 4.5:1).
-- [ ] **TASK 5 — Performance.** `defer` the script, add `width`/`height` to both
+- [x] **TASK 5 — Performance.** `defer` the script, add `width`/`height` to both
       images, and `loading="lazy"` to the content image.
 
 ## Part B — Ship it on a pipeline (Week 17)
@@ -51,8 +53,8 @@ Check with: `pytest tests/test_accessibility.py tests/test_performance.py`
 File: `.github/workflows/ci.yml`
 Check with: `pytest tests/test_pipeline.py`
 
-- [ ] **TASK 6 — Triggers.** Run the workflow on `push` and `pull_request` to `main`.
-- [ ] **TASK 7 — The job.** One `test` job on `ubuntu-latest` that checks out the
+- [x] **TASK 6 — Triggers.** Run the workflow on `push` and `pull_request` to `main`.
+- [x] **TASK 7 — The job.** One `test` job on `ubuntu-latest` that checks out the
       code, sets up Python, installs `requirements.txt`, and runs `pytest`.
 
 When all three suites pass locally, run the whole thing once more:
@@ -88,3 +90,13 @@ you **Approve** or **Request changes**.
    screen-reader or keyboard user depends on? Why?
 2. Your pipeline runs the Week 16 checks automatically now. How does that stop a
    teammate from *accidentally* shipping an inaccessible page six weeks from now?
+
+## Reflection answers
+
+**1. Which accessibility fix would a sighted mouse user never notice but a screen-reader or keyboard user depends on? Why?**
+
+Adding real `<label>` elements linked to the username and password fields is an important fix. A sighted mouse user can read the text next to each field without noticing whether it is properly linked. A screen-reader user relies on those labels to hear which information belongs in each input when they navigate the form.
+
+**2. Your pipeline runs the Week 16 checks automatically now. How does that stop a teammate from accidentally shipping an inaccessible page six weeks from now?**
+
+GitHub Actions runs the full test suite whenever someone opens a pull request to `main` or pushes to `main`. If a future change removes an image description, breaks an input label, or weakens text contrast, the relevant test will fail and display a red check. The team can review and fix the problem before merging, especially when the repository requires successful checks for pull requests.
